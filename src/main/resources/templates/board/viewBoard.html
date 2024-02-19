@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title th:text="#{title.board.add}"></title>
+  <style>
+  </style>
+</head>
+<body>
+<h3 th:text="#{title.board.detail}"></h3>
+<div class="frm-wrap">
+  <form action="#" method="post">
+    <div><label for="boardId" th:text="#{label.board.boardId}"></label>
+      <input id="boardId" type="text" th:value="${board.boardId}" readonly>
+    </div>
+    <div><label for="title" th:text="#{label.board.title}"></label>
+      <input id="title" type="text" th:value="${board.title}" readonly>
+    </div>
+    <div>
+      <label for="contents" th:text="#{label.board.contents}"></label>
+      <input id="contents" th:value="${board.contents}" readonly>
+    </div>
+    <div>
+      <label for="writer" th:text="#{label.board.writer}"></label>
+      <input id="writer" type="text" th:value="${board.writer}" readonly>
+    </div>
+    <div>
+      <label for="cdate" th:text="#{label.board.cdate}"></label>
+      <input id="cdate" type="text" th:value="${#temporals.format(board.cdate,'yyyy년 MM월 dd일')}" readonly> 
+    </div>
+    <div>
+      <label for="udate" th:text="#{label.board.udate}"></label>
+      <input id="udate" type="text" th:value="${#temporals.format(board.udate,'yyyy년 MM월 dd일')}" readonly> 
+    </div>
+    <div class="btn">
+      <input id="modifyBtn" type="button" value="수정">
+      <input id="deleteBtn" type="button" value="삭제">
+      <input id="listBtn" type="button" value="목록">
+    </div>
+  </div>
+</form>
+<script>
+  const bid = document.getElementById('boardId').value;
+  const $listBtn = document.getElementById("listBtn")
+  $listBtn.addEventListener('click',evt=>{
+    location.href = '/boardlist';
+  })
+
+  const $deleteBtn = document.getElementById('deleteBtn');
+  $deleteBtn.addEventListener('click',evt=>{
+  location.href = `/boardlist/${bid}/del`;
+  })
+
+  const $modifyBtn = document.getElementById('modifyBtn');
+  $modifyBtn.addEventListener('click',evt=>{
+    location.href = `/boardlist/${bid}/edit`;
+  });
+</script>
+</body>
+</html>
