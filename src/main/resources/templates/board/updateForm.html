@@ -24,6 +24,42 @@
       text-align: center;
       justify-content: center;
     }
+    .frm-wrap{
+      display: flex;
+      justify-content: center;
+      text-align: center;
+      width: 100%;
+      height: 600px;
+    }
+    form{
+      width: 700px;
+    }
+    .rows-wrap{
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      text-align: center;
+      width: 100%;
+    }
+    .label-wrap{
+      padding: 10px;
+      width: 20%;
+    }
+    .input-wrap{
+      padding: 10px;
+      width: 80%;
+    }
+    input[type="text" i] {
+    width: 100%;
+    height: 30px;
+    }
+    input[type="textarea" i] {
+    width: 100%;
+    height: 300px;
+    }
+    input#boardId, input#writer{
+      background-color: gray;
+    }
   </style>
 </head>
 <body>
@@ -55,7 +91,7 @@
             <label for="contents" th:text="#{label.board.contents}"></label>
           </div>
           <div class="input-wrap">
-            <input id="contents" name="contents" th:value="${board.contents}">
+            <input type="textarea" id="contents" name="contents" th:value="${board.contents}">
             <span class="err-msg" id="errContents" th:if="${err_contents != null and err_contents !=''}" th:class="'err-msg on'" th:text="${err_contents}"></span>
           </div>
         </div>

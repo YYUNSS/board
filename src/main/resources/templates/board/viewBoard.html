@@ -6,33 +6,115 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title th:text="#{title.board.add}"></title>
   <style>
+    *{
+      margin : 0;
+      padding : 0;
+    }
+    .wrap{
+      display: flex;
+      flex-direction: column;
+      text-align: center;
+    }
+    h3{
+      display: inline-block;
+      font-weight: bolder;
+    }
+    .titleOfBoard{
+      display: flex;
+      text-align: center;
+      justify-content: center;
+    }
+    .frm-wrap{
+      display: flex;
+      justify-content: center;
+      text-align: center;
+      width: 100%;
+      height: 600px;
+    }
+    form{
+      width: 700px;
+    }
+    .row-wrap{
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      text-align: center;
+      width: 100%;
+      outline: 1px solid rgb(105, 104, 104);
+    }
+    .label-wrap{
+      padding: 10px;
+      width: 20%;
+      background-color: #727272;
+    }
+    .input-wrap{
+      padding: 10px;
+      width: 80%;
+    }
+    input[type="text" i] {
+    width: 100%;
+    height: 30px;
+    }
+    input[type="textarea" i] {
+    width: 100%;
+    height: 300px;
+    }
   </style>
 </head>
 <body>
-<h3 th:text="#{title.board.detail}"></h3>
-<div class="frm-wrap">
+  <div class="wrap">
+    <div class="titleOfBoard">
+    <h3 th:text="#{title.board.detail}"></h3>
+  </div>
+  <div class="frm-wrap">
   <form action="#" method="post">
-    <div><label for="boardId" th:text="#{label.board.boardId}"></label>
-      <input id="boardId" type="text" th:value="${board.boardId}" readonly>
+    <div class="row-wrap">
+      <div class="label-wrap">
+       <label for="boardId" th:text="#{label.board.boardId}"></label>
     </div>
-    <div><label for="title" th:text="#{label.board.title}"></label>
-      <input id="title" type="text" th:value="${board.title}" readonly>
+      <div class="input-wrap">
+        <input id="boardId" type="text" th:value="${board.boardId}" readonly>
+      </div>
     </div>
-    <div>
+    <div class="row-wrap">
+      <div class="label-wrap">
+       <label for="title" th:text="#{label.board.title}"></label>
+      </div>
+      <div class="input-wrap">
+        <input id="title" type="text" th:value="${board.title}" readonly>
+      </div>
+    </div>
+    <div class="row-wrap">
+      <div class="label-wrap">
       <label for="contents" th:text="#{label.board.contents}"></label>
-      <input id="contents" th:value="${board.contents}" readonly>
+     </div>
+     <div class="input-wrap">
+      <input type="textarea" id="contents" th:value="${board.contents}" readonly>
+     </div>
     </div>
-    <div>
+    <div class="row-wrap">
+      <div class="label-wrap">
       <label for="writer" th:text="#{label.board.writer}"></label>
+      </div>
+      <div class="input-wrap">
       <input id="writer" type="text" th:value="${board.writer}" readonly>
+     </div>
     </div>
-    <div>
-      <label for="cdate" th:text="#{label.board.cdate}"></label>
-      <input id="cdate" type="text" th:value="${#temporals.format(board.cdate,'yyyy년 MM월 dd일')}" readonly> 
+    <div class="row-wrap">
+      <div class="label-wrap">
+        <label for="cdate" th:text="#{label.board.cdate}"></label>
+      </div>
+      <div class="input-wrap">
+        <input id="cdate" type="text" th:value="${#temporals.format(board.cdate,'yyyy년 MM월 dd일')}" readonly> 
+      </div>
     </div>
-    <div>
-      <label for="udate" th:text="#{label.board.udate}"></label>
-      <input id="udate" type="text" th:value="${#temporals.format(board.udate,'yyyy년 MM월 dd일')}" readonly> 
+    <div class="row-wrap">
+      <div class="label-wrap">
+       <label for="udate" th:text="#{label.board.udate}"></label>
+      </div>
+      <div class="input-wrap">
+        <input id="udate" type="text" th:value="${#temporals.format(board.udate,'yyyy년 MM월 dd일')}" readonly> 
+      </div>
     </div>
     <div class="btn">
       <input id="modifyBtn" type="button" value="수정">
@@ -40,7 +122,8 @@
       <input id="listBtn" type="button" value="목록">
     </div>
   </div>
-</form>
+  </form>
+</div>
 <script>
   const bid = document.getElementById('boardId').value;
   const $listBtn = document.getElementById("listBtn")
@@ -50,6 +133,8 @@
 
   const $deleteBtn = document.getElementById('deleteBtn');
   $deleteBtn.addEventListener('click',evt=>{
+    if(!window.confirm('삭제하시겠습니까?'))
+    return;
   location.href = `/boardlist/${bid}/del`;
   })
 
