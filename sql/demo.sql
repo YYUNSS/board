@@ -1,41 +1,36 @@
---테이블삭제
-drop table product;
+--테이블 삭제
+drop table board;
 
---시퀀스삭제
-drop sequence product_product_id_seq;
+--시퀀스 삭제
+drop sequence board_board_id_seq;
 
----------
---상품관리
---------
-create table product(
-    product_id  number(10),
-    pname       varchar(30),
-    quantity    number(10),
-    price       number(10),
-    cdate       timestamp, --생성일시
-    udate       timestamp  --수정일시
-);
+--테이블 생성
+create table board(
+board_id   number(10),     -- 게시글 아이디
+title       varchar(100),    -- 제목
+contents    varchar(1000),           -- 내용
+writer      varchar(100),    -- 작성자
+cdate       timestamp,      -- 작성일자
+udate       timestamp);     -- 수정일자
+
 --기본키
-alter table product add constraint product_product_id_pk primary key(product_id);
+alter table board add constraint board_board_id_pk primary key(board_id);
 
---시퀀스생성
-create sequence product_product_id_seq;
+--시퀀스 생성
+create sequence board_board_id_seq;
 
---디폴트
-alter table product modify cdate default systimestamp; --운영체제 일시를 기본값으로
-alter table product modify udate default systimestamp; --운영체제 일시를 기본값으로
+--디폴트값 부여
+alter table board modify cdate default systimestamp;
+alter table board modify udate default systimestamp;
 
---필수 not null
-alter table product modify quantity not null;
-alter table product modify price not null;
+insert into board(board_id,title,contents,writer)
+     values(board_board_id_seq.nextval, '제목1', '내용1', '작성자1');
 
---생성--
-insert into product(product_id,pname,quantity,price)
-     values(product_product_id_seq.nextval, '컴퓨터', 5, 1000000);
+insert into board(board_id,title,contents,writer)
+     values(board_board_id_seq.nextval, '제목2', '내용2', '작성자2 ');
+     
+insert into board(board_id,title,contents,writer)
+     values(board_board_id_seq.nextval, '제목3', '내용3', '작성자3');
 
-insert into product(product_id,pname,quantity,price)
-     values(product_product_id_seq.nextval, '모니터', 5, 500000);
 
-insert into product(product_id,pname,quantity,price)
-     values(product_product_id_seq.nextval, '프린터', 1, 300000);
 commit;
